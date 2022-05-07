@@ -6,7 +6,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async init() {
+    const category = await this.appService.allCategory();
+    const travel = await this.appService.allTravel();
+
+    return {
+      category: category,
+      travel: travel,
+    };
   }
 }

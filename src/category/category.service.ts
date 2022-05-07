@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateCategoryDto } from "./dto/create-category.dto";
+import { UpdateCategoryDto } from "./dto/update-category.dto";
+import { CategoryRepository } from "./category.repository";
 
 @Injectable()
 export class CategoryService {
+  constructor(private CategoryRepository: CategoryRepository) {
+  }
+
   create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+    return this.CategoryRepository.save(createCategoryDto);
   }
 
   findAll() {
-    return `This action returns all category`;
+    return this.CategoryRepository.find({ where: { deletedAt: null } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  findOne(id: string) {
+    return this.CategoryRepository.findOne(id);
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  update(id: string, updateCategoryDto: UpdateCategoryDto) {
+    return this.CategoryRepository.update(id, updateCategoryDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  isActive(id: string, payload: object) {
+    return this.CategoryRepository.update(id, payload);
+  }
+
+  rank(id: string, order: number) {
+    return this.CategoryRepository.update(id, { order: order });
+  }
+
+  remove(id: string) {
+    return this.CategoryRepository.update(id, { deletedAt: new Date() });
   }
 }

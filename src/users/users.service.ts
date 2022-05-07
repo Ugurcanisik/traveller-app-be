@@ -24,6 +24,18 @@ export class UsersService {
     return this.UserRepository.findOne(id);
   }
 
+  findByUserName(payload) {
+    return this.UserRepository.findOne({
+      where: { userName: payload, deletedAt: null },
+    })
+      .then((response) => {
+        return response;
+      })
+      .catch((e) => {
+        return e;
+      });
+  }
+
   update(id: string, updateUserDto: UpdateUserDto) {
     return this.UserRepository.update(id, updateUserDto);
   }

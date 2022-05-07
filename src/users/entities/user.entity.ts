@@ -20,4 +20,7 @@ export class User extends AbstractEntity {
 
   @Column({ type: 'varchar', length: 300, nullable: true })
   rights: string;
+
+  @Column({ type: 'varchar', length: 600, nullable: true })
+  token: string;
 }
