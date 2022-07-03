@@ -10,7 +10,7 @@ export class Travel extends AbstractEntity {
   @Column({ type: 'varchar', length: 200, nullable: true })
   picture: string;
 
-  @Column({ type: 'varchar', length: 300, nullable: true })
+  @Column({ type: 'varchar', length: 900, nullable: true })
   description: string;
 
   @ManyToOne((type) => Category, (category) => category.id)
